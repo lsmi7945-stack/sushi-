@@ -1,0 +1,116 @@
++-----------------+------------------+
+| NeedName        | TimesRankedFirst |
++-----------------+------------------+
+| New computers   |                6 |
+| Better Wi-Fi    |                3 |
+| Smartboards     |                2 |
+| Computer labs   |                2 |
+| Tablets         |                1 |
+| More IT support |                1 |
++-----------------+------------------+
++---------------------------+-------------------+-----------+
+| SchoolName                | StudentsPerDevice | DeviceAge |
++---------------------------+-------------------+-----------+
+| Pine Hill High School     |               4.6 |       8.1 |
+| Summit Valley High School |               4.3 |       7.8 |
+| Cedar Ridge High School   |               4.1 |       7.6 |
+| Valley High School        |               3.9 |       7.2 |
+| Lakeshore Elementary      |               3.5 |       6.9 |
+| Maple Grove Elementary    |               2.7 |       6.3 |
+| Riverside Middle School   |               2.5 |       5.6 |
+| Meadowbrook Middle School |               2.2 |       5.0 |
+| Brookside Middle School   |               1.9 |       4.5 |
+| Willow Creek Elementary   |               1.7 |       4.1 |
+| Oakwood Elementary School |               1.6 |       3.4 |
+| Stonebridge Middle School |               1.5 |       3.8 |
+| Hillside High School      |               1.3 |       3.1 |
+| Eastbrook Middle School   |               1.2 |       2.8 |
+| Northfield Elementary     |               1.2 |       2.9 |
++---------------------------+-------------------+-----------+
++---------------------------+----------+---------------+
+| SchoolName                | Students | InternetSpeed |
++---------------------------+----------+---------------+
+| Pine Hill High School     |      810 |            38 |
+| Summit Valley High School |      940 |            48 |
+| Cedar Ridge High School   |      730 |            55 |
+| Valley High School        |      520 |            62 |
+| Lakeshore Elementary      |      345 |            72 |
+| Maple Grove Elementary    |      305 |            82 |
+| Riverside Middle School   |      640 |           115 |
+| Meadowbrook Middle School |      610 |           130 |
+| Willow Creek Elementary   |      285 |           165 |
+| Brookside Middle School   |      555 |           175 |
+| Oakwood Elementary School |      365 |           240 |
+| Stonebridge Middle School |      585 |           260 |
+| Northfield Elementary     |      410 |           310 |
+| Hillside High School      |      695 |           320 |
+| Eastbrook Middle School   |      475 |           390 |
++---------------------------+----------+---------------+
++---------------------------+--------------+--------+
+| SchoolName                | WiFiProblems | SaidNo |
++---------------------------+--------------+--------+
+| Pine Hill High School     |           14 |      4 |
+| Summit Valley High School |           13 |      4 |
+| Cedar Ridge High School   |           12 |      3 |
+| Valley High School        |           11 |      3 |
+| Lakeshore Elementary      |           10 |      4 |
+| Maple Grove Elementary    |            9 |      4 |
+| Riverside Middle School   |            7 |      1 |
+| Meadowbrook Middle School |            6 |      1 |
++---------------------------+--------------+--------+
++---------------------------+--------+-------------------+-----------+
+| SchoolName                | Budget | StudentsPerDevice | DeviceAge |
++---------------------------+--------+-------------------+-----------+
+| Hillside High School      |  88000 |               1.3 |       3.1 |
+| Eastbrook Middle School   |  71000 |               1.2 |       2.8 |
+| Stonebridge Middle School |  66000 |               1.5 |       3.8 |
+| Northfield Elementary     |  62000 |               1.2 |       2.9 |
+| Brookside Middle School   |  53000 |               1.9 |       4.5 |
+| Meadowbrook Middle School |  49500 |               2.2 |       5.0 |
+| Oakwood Elementary School |  48000 |               1.6 |       3.4 |
+| Riverside Middle School   |  44000 |               2.5 |       5.6 |
+| Summit Valley High School |  42000 |               4.3 |       7.8 |
+| Cedar Ridge High School   |  37000 |               4.1 |       7.6 |
+| Willow Creek Elementary   |  32000 |               1.7 |       4.1 |
+| Pine Hill High School     |  31000 |               4.6 |       8.1 |
+| Valley High School        |  28000 |               3.9 |       7.2 |
+| Maple Grove Elementary    |  23500 |               2.7 |       6.3 |
+| Lakeshore Elementary      |  21000 |               3.5 |       6.9 |
++---------------------------+--------+-------------------+-----------+
++---------------+-----------------------------+---------+
+| Role          | IssueName                   | Answers |
++---------------+-----------------------------+---------+
+| Administrator | Not enough computers        |       6 |
+| Administrator | Unreliable Wi-Fi            |       3 |
+| Administrator | Limited computer lab access |       2 |
+| Administrator | Outdated smartboards        |       2 |
+| Administrator | Insufficient IT support     |       1 |
+| Administrator | Not enough tablets          |       1 |
+| IT Staff      | Insufficient IT support     |       4 |
+| IT Staff      | Not enough tablets          |       3 |
+| IT Staff      | Unreliable Wi-Fi            |       3 |
+| IT Staff      | Slow internet               |       3 |
+| IT Staff      | Not enough computers        |       1 |
+| IT Staff      | Outdated smartboards        |       1 |
+| Teacher       | Not enough computers        |       8 |
+| Teacher       | Unreliable Wi-Fi            |       7 |
+| Teacher       | Outdated smartboards        |       5 |
+| Teacher       | Insufficient IT support     |       4 |
+| Teacher       | Limited computer lab access |       3 |
+| Teacher       | Slow internet               |       2 |
+| Teacher       | Not enough tablets          |       1 |
++---------------+-----------------------------+---------+
++---------+
+| Matches |
++---------+
+|      60 |
++---------+
++---------------------------+---------------+
+| SchoolName                | TopNeed       |
++---------------------------+---------------+
+| Valley High School        | New computers |
+| Pine Hill High School     | New computers |
+| Cedar Ridge High School   | New computers |
+| Summit Valley High School | New computers |
+| Lakeshore Elementary      | New computers |
++---------------------------+---------------+
