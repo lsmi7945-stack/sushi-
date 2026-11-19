@@ -15,3 +15,11 @@ Our database will be designed to answer three main questions:
    
 Overall, our database will demonstrate how organizing and analyzing technology-related information can help schools make more informed decisions about allocating resources. By identifying common problems and areas of greatest need, our project supports SDG 9 by focusing on improving technological infrastructure and access to technology in schools.
 
+Sources
+United Nations, Goal 9
+UNICEF and ITU, Two thirds of the world's school-age children have no internet access at home, 2020
+SWI swissinfo.ch, How the UN plans to connect every school to the internet by 2030, 2024
+GovTech, Report: 3 in 4 school districts meet FCC internet speed standards, 2023
+Gemini, used to make the mock data spreadsheet
+Our project proposal
+
