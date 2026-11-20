@@ -19,18 +19,23 @@ Our project aims to answer three main questions:
 Our database is named `sdg9_school_tech` and contains five tables.
 
 ### 1. schools
+
 Stores information about each school's technology resources, including student enrollment, number of devices, average device age, internet speed, and technology budget.
 
 ### 2. needs
+
 Stores categories of possible technology improvements, such as internet upgrades, new computers, and additional devices.
 
 ### 3. issues
+
 Stores technology problems reported by school staff. Each issue is associated with a possible improvement in the `needs` table.
 
 ### 4. surveys
+
 Stores individual survey responses from teachers, administrators, and other school employees. Each survey belongs to one school.
 
 ### 5. survey_issues
+
 Connects surveys to the technology problems reported in them. This table allows a single survey to report multiple issues and creates a many-to-many relationship between surveys and issues.
 
 ### SQL View: school_needs_summary
@@ -41,11 +46,11 @@ This replaces our original `SchoolNeeds` table because school needs can be deter
 
 ## Database Relationships
 
-- One school can have multiple surveys.
-- One need can be associated with multiple issues.
-- One survey can report multiple issues.
-- One issue can appear in multiple surveys.
-- The `survey_issues` table establishes the many-to-many relationship between surveys and issues.
+* One school can have multiple surveys.
+* One need can be associated with multiple issues.
+* One survey can report multiple issues.
+* One issue can appear in multiple surveys.
+* The `survey_issues` table establishes the many-to-many relationship between surveys and issues.
 
 ## Data Sources
 
@@ -53,11 +58,11 @@ Our project uses synthetic mock data representing school technology resources an
 
 The dataset includes:
 
-- 15 schools
-- 7 technology need categories
-- 12 technology issue categories
-- 60 staff surveys
-- 115 survey-issue records
+* 15 schools
+* 7 technology need categories
+* 12 technology issue categories
+* 60 staff surveys
+* 115 survey-issue records
 
 The mock data is intended to demonstrate how a school technology database could be used to analyze infrastructure challenges.
 
@@ -65,11 +70,11 @@ The mock data is intended to demonstrate how a school technology database could 
 
 Our SQL queries are designed to:
 
-- Identify the most commonly reported technology needs.
-- Compare the number of students per available device.
-- Determine which schools report the most Wi-Fi reliability problems.
-- Compare technology budgets per student.
-- Identify frequently reported needs at individual schools.
+* Identify the most commonly reported technology needs.
+* Compare the number of students per available device.
+* Determine which schools report the most Wi-Fi reliability problems.
+* Compare technology budgets per student.
+* Identify frequently reported needs at individual schools.
 
 The database also includes indexes to support efficient data retrieval and relationships between tables.
 
@@ -85,10 +90,10 @@ Additionally, the number of students per device is calculated using SQL rather t
 
 1. Install MySQL Server and MySQL Workbench.
 2. Open MySQL Workbench and connect to your MySQL server.
-3. Run `01_create_tables.sql` to create the database and tables.
-4. Run `02_insert_mock_data.sql` to populate the tables.
-5. Run `03_indexes.sql` to create any additional indexes.
-6. Run `04_queries.sql` to execute the research queries.
+3. Run `sdg9/sql/01_create_tables.sql` to create the database and tables.
+4. Run `sdg9/sql/02_insert_mock_data.sql` to populate the tables.
+5. Run `sdg9/sql/03_indexes.sql` to create any additional indexes.
+6. Run `sdg9/sql/04_queries.sql` to execute the research queries.
 
 **Note:** The database creation script may delete and recreate the existing database. Back up any existing data before running it.
 
@@ -96,10 +101,10 @@ Additionally, the number of students per device is calculated using SQL rather t
 
 The repository is intended to include:
 
-- SQL scripts for database creation, mock data, indexes, and analysis.
-- An entity-relationship diagram showing the database structure.
-- A data dictionary defining the tables and attributes.
-- Project documentation explaining our research questions, methodology, and findings.
+* SQL scripts for database creation, mock data, indexes, and analysis.
+* An entity-relationship diagram showing the database structure.
+* A data dictionary defining the tables and attributes.
+* Project documentation explaining our research questions, methodology, and findings.
 
 ## Project Goal
 
