@@ -271,7 +271,6 @@ All validation tests passed, and the original 234 mock data records remained int
 | 3 | 03_indexes.sql | Creates additional indexes |
 | 4 | 04_queries.sql | Executes the research analysis |
 | 5 | 05_database_validation.sql | Verifies database integrity |
-| 6 | 06_constraint_testing.sql | Tests constraint enforcement |
 
 The project uses MySQL 8.0.16 or later to support enforced CHECK constraints, common table expressions, and window functions.
 
