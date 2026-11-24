@@ -1,216 +1,252 @@
-########## 01_create_tables.sql
-########## 02_insert_mock_data.sql
-########## 03_indexes.sql
-+---------------+----------------------------+----------------------+------------+
-| TABLE_NAME    | INDEX_NAME                 | columns_in_index     | uniqueness |
-+---------------+----------------------------+----------------------+------------+
-| issues        | idx_issues_need_id         | need_id              | non-unique |
-| issues        | PRIMARY                    | issue_id             | unique     |
-| issues        | uq_issues_issue_name       | issue_name           | unique     |
-| needs         | PRIMARY                    | need_id              | unique     |
-| needs         | uq_needs_need_name         | need_name            | unique     |
-| schools       | idx_schools_budget         | budget               | non-unique |
-| schools       | idx_schools_internet_speed | internet_speed       | non-unique |
-| schools       | PRIMARY                    | school_id            | unique     |
-| survey_issues | idx_survey_issues_issue_id | issue_id             | non-unique |
-| survey_issues | PRIMARY                    | survey_id,issue_id   | unique     |
-| surveys       | idx_surveys_role           | role                 | non-unique |
-| surveys       | idx_surveys_school_wifi    | school_id,wifi_works | non-unique |
-| surveys       | PRIMARY                    | survey_id            | unique     |
-+---------------+----------------------------+----------------------+------------+
-########## 04_queries.sql
-+-------------------------------+-----------------------------+----------------+-------------------+
-| issue_name                    | related_need                | times_reported | schools_reporting |
-+-------------------------------+-----------------------------+----------------+-------------------+
-| Slow Wi-Fi                    | Internet upgrade            |             14 |                10 |
-| Software compatibility errors | Software upgrades           |             14 |                 9 |
-| Outdated computers            | New computers               |             13 |                 8 |
-| Not enough student devices    | Additional devices          |             12 |                11 |
-| Slow classroom computers      | New computers               |             12 |                 8 |
-| Network equipment failures    | Network equipment           |              8 |                 8 |
-| Limited staff tech training   | Teacher technology training |              8 |                 6 |
-| Outdated educational software | Software upgrades           |              8 |                 6 |
-| Delayed technical support     | IT support                  |              7 |                 7 |
-| Insufficient Wi-Fi coverage   | Network equipment           |              7 |                 7 |
-| Device sharing delays         | Additional devices          |              6 |                 5 |
-| Frequent internet disconnects | Internet upgrade            |              6 |                 5 |
-+-------------------------------+-----------------------------+----------------+-------------------+
-+-----------------------------+----------------+-------------------+----------------+-------------------+
-| need_name                   | times_reported | surveys_reporting | pct_of_surveys | schools_reporting |
-+-----------------------------+----------------+-------------------+----------------+-------------------+
-| New computers               |             25 |                25 |           41.7 |                13 |
-| Software upgrades           |             22 |                22 |           36.7 |                12 |
-| Internet upgrade            |             20 |                18 |           30.0 |                12 |
-| Additional devices          |             18 |                16 |           26.7 |                12 |
-| Network equipment           |             15 |                15 |           25.0 |                11 |
-| Teacher technology training |              8 |                 8 |           13.3 |                 6 |
-| IT support                  |              7 |                 7 |           11.7 |                 7 |
-+-----------------------------+----------------+-------------------+----------------+-------------------+
-+---------------+-----------------------------+----------------+--------------+
-| role          | need_name                   | times_reported | rank_in_role |
-+---------------+-----------------------------+----------------+--------------+
-| Administrator | New computers               |              7 |            1 |
-| Administrator | Network equipment           |              5 |            2 |
-| Administrator | Internet upgrade            |              4 |            3 |
-| Administrator | Software upgrades           |              4 |            3 |
-| Administrator | Additional devices          |              2 |            5 |
-| Administrator | IT support                  |              2 |            5 |
-| Administrator | Teacher technology training |              2 |            5 |
-| IT Staff      | Additional devices          |              5 |            1 |
-| IT Staff      | Software upgrades           |              5 |            1 |
-| IT Staff      | Internet upgrade            |              4 |            3 |
-| IT Staff      | New computers               |              4 |            3 |
-| IT Staff      | Teacher technology training |              3 |            5 |
-| IT Staff      | Network equipment           |              2 |            6 |
-| IT Staff      | IT support                  |              1 |            7 |
-| Teacher       | New computers               |             14 |            1 |
-| Teacher       | Software upgrades           |             13 |            2 |
-| Teacher       | Internet upgrade            |             12 |            3 |
-| Teacher       | Additional devices          |             11 |            4 |
-| Teacher       | Network equipment           |              8 |            5 |
-| Teacher       | IT support                  |              4 |            6 |
-| Teacher       | Teacher technology training |              3 |            7 |
-+---------------+-----------------------------+----------------+--------------+
-+-----------------------------+----------+---------+---------------------+----------------------+
-| school_name                 | students | devices | students_per_device | avg_device_age_years |
-+-----------------------------+----------+---------+---------------------+----------------------+
-| Hudson Valley Middle School |      933 |      89 |                10.5 |                  7.1 |
-| Eastbrook Middle School     |      558 |      56 |                10.0 |                  5.7 |
-| Oakridge Elementary         |      991 |     120 |                 8.3 |                  7.2 |
-| Valley View Elementary      |      745 |     152 |                 4.9 |                  5.6 |
-| Maple Grove Academy         |      575 |     182 |                 3.2 |                  7.4 |
-| Brookside Academy           |      914 |     351 |                 2.6 |                  5.7 |
-| Stonebridge Academy         |      242 |     107 |                 2.3 |                  2.6 |
-| Summit Ridge High School    |      892 |     461 |                 1.9 |                  3.5 |
-| Lakeside Middle School      |      452 |     244 |                 1.9 |                  3.2 |
-| Riverside Elementary        |      444 |     246 |                 1.8 |                  4.3 |
-| Meadowbrook School          |      752 |     550 |                 1.4 |                  4.4 |
-| Cedar Hill School           |      341 |     261 |                 1.3 |                  6.9 |
-| Northgate High School       |      705 |     536 |                 1.3 |                  5.9 |
-| Pinecrest High School       |      391 |     349 |                 1.1 |                  3.7 |
-| Westfield High School       |      312 |     280 |                 1.1 |                  3.3 |
-+-----------------------------+----------+---------+---------------------+----------------------+
-+-----------------------------+----------+---------------+------------------+----------------+
-| school_name                 | students | internet_mbps | mbps_per_student | meets_fcc_goal |
-+-----------------------------+----------+---------------+------------------+----------------+
-| Hudson Valley Middle School |      933 |            35 |            0.038 | No             |
-| Summit Ridge High School    |      892 |            35 |            0.039 | No             |
-| Brookside Academy           |      914 |            50 |            0.055 | No             |
-| Meadowbrook School          |      752 |            50 |            0.066 | No             |
-| Lakeside Middle School      |      452 |            50 |            0.111 | No             |
-| Eastbrook Middle School     |      558 |            75 |            0.134 | No             |
-| Riverside Elementary        |      444 |           100 |            0.225 | No             |
-| Oakridge Elementary         |      991 |           250 |            0.252 | No             |
-| Pinecrest High School       |      391 |           100 |            0.256 | No             |
-| Maple Grove Academy         |      575 |           150 |            0.261 | No             |
-| Valley View Elementary      |      745 |           400 |            0.537 | No             |
-| Northgate High School       |      705 |           400 |            0.567 | No             |
-| Cedar Hill School           |      341 |           250 |            0.733 | No             |
-| Westfield High School       |      312 |           400 |            1.282 | Yes            |
-| Stonebridge Academy         |      242 |           400 |            1.653 | Yes            |
-+-----------------------------+----------+---------------+------------------+----------------+
-+-----------------------------+---------+-----------------+----------------+
-| school_name                 | surveys | said_wifi_fails | pct_wifi_fails |
-+-----------------------------+---------+-----------------+----------------+
-| Brookside Academy           |       4 |               4 |            100 |
-| Eastbrook Middle School     |       4 |               4 |            100 |
-| Maple Grove Academy         |       4 |               4 |            100 |
-| Westfield High School       |       4 |               4 |            100 |
-| Cedar Hill School           |       4 |               3 |             75 |
-| Meadowbrook School          |       4 |               3 |             75 |
-| Riverside Elementary        |       4 |               3 |             75 |
-| Summit Ridge High School    |       4 |               3 |             75 |
-| Valley View Elementary      |       4 |               3 |             75 |
-| Lakeside Middle School      |       4 |               2 |             50 |
-| Northgate High School       |       4 |               2 |             50 |
-| Oakridge Elementary         |       4 |               2 |             50 |
-| Stonebridge Academy         |       4 |               2 |             50 |
-| Hudson Valley Middle School |       4 |               1 |             25 |
-| Pinecrest High School       |       4 |               1 |             25 |
-+-----------------------------+---------+-----------------+----------------+
-+-----------------------------+----------+--------+--------------------+
-| school_name                 | students | budget | budget_per_student |
-+-----------------------------+----------+--------+--------------------+
-| Oakridge Elementary         |      991 |  14000 |              14.13 |
-| Valley View Elementary      |      745 |  12000 |              16.11 |
-| Hudson Valley Middle School |      933 |  77000 |              82.53 |
-| Brookside Academy           |      914 | 113000 |             123.63 |
-| Summit Ridge High School    |      892 | 114000 |             127.80 |
-| Pinecrest High School       |      391 |  64000 |             163.68 |
-| Northgate High School       |      705 | 117000 |             165.96 |
-| Meadowbrook School          |      752 | 125000 |             166.22 |
-| Riverside Elementary        |      444 |  86000 |             193.69 |
-| Westfield High School       |      312 |  61000 |             195.51 |
-| Cedar Hill School           |      341 |  68000 |             199.41 |
-| Lakeside Middle School      |      452 |  92000 |             203.54 |
-| Maple Grove Academy         |      575 | 126000 |             219.13 |
-| Eastbrook Middle School     |      558 | 124000 |             222.22 |
-| Stonebridge Academy         |      242 |  60000 |             247.93 |
-+-----------------------------+----------+--------+--------------------+
-+-----------------------------+-------------+---------------+-----------+-------------+----------------+
-| school_name                 | device_rank | internet_rank | wifi_rank | budget_rank | shortage_score |
-+-----------------------------+-------------+---------------+-----------+-------------+----------------+
-| Brookside Academy           |           6 |             3 |         1 |           4 |             14 |
-| Hudson Valley Middle School |           1 |             1 |        14 |           3 |             19 |
-| Summit Ridge High School    |           8 |             2 |         5 |           5 |             20 |
-| Oakridge Elementary         |           3 |             8 |        10 |           1 |             22 |
-| Valley View Elementary      |           4 |            11 |         5 |           2 |             22 |
-| Eastbrook Middle School     |           2 |             6 |         1 |          14 |             23 |
-| Meadowbrook School          |          11 |             4 |         5 |           8 |             28 |
-| Maple Grove Academy         |           5 |            10 |         1 |          13 |             29 |
-| Riverside Elementary        |          10 |             7 |         5 |           9 |             31 |
-| Lakeside Middle School      |           9 |             5 |        10 |          12 |             36 |
-| Westfield High School       |          15 |            14 |         1 |          10 |             40 |
-| Northgate High School       |          12 |            12 |        10 |           7 |             41 |
-| Cedar Hill School           |          13 |            13 |         5 |          11 |             42 |
-| Pinecrest High School       |          14 |             9 |        14 |           6 |             43 |
-| Stonebridge Academy         |           7 |            15 |        10 |          15 |             47 |
-+-----------------------------+-------------+---------------+-----------+-------------+----------------+
-+-----------------------------+-----------------------------+----------------+
-| school_name                 | need_name                   | times_reported |
-+-----------------------------+-----------------------------+----------------+
-| Brookside Academy           | Internet upgrade            |              4 |
-| Cedar Hill School           | Network equipment           |              2 |
-| Cedar Hill School           | New computers               |              2 |
-| Cedar Hill School           | Software upgrades           |              2 |
-| Eastbrook Middle School     | Additional devices          |              2 |
-| Eastbrook Middle School     | Network equipment           |              2 |
-| Eastbrook Middle School     | New computers               |              2 |
-| Hudson Valley Middle School | Software upgrades           |              4 |
-| Lakeside Middle School      | New computers               |              2 |
-| Maple Grove Academy         | Additional devices          |              2 |
-| Maple Grove Academy         | Network equipment           |              2 |
-| Maple Grove Academy         | Software upgrades           |              2 |
-| Meadowbrook School          | Internet upgrade            |              3 |
-| Northgate High School       | Additional devices          |              2 |
-| Northgate High School       | Software upgrades           |              2 |
-| Oakridge Elementary         | Internet upgrade            |              3 |
-| Oakridge Elementary         | New computers               |              3 |
-| Pinecrest High School       | New computers               |              2 |
-| Pinecrest High School       | Software upgrades           |              2 |
-| Riverside Elementary        | New computers               |              3 |
-| Stonebridge Academy         | New computers               |              2 |
-| Stonebridge Academy         | Software upgrades           |              2 |
-| Summit Ridge High School    | Teacher technology training |              2 |
-| Valley View Elementary      | New computers               |              3 |
-| Westfield High School       | Additional devices          |              3 |
-+-----------------------------+-----------------------------+----------------+
-+-----------------------------+------------------------+
-| need_name                   | schools_where_top_need |
-+-----------------------------+------------------------+
-| New computers               |                      8 |
-| Software upgrades           |                      6 |
-| Additional devices          |                      4 |
-| Internet upgrade            |                      3 |
-| Network equipment           |                      3 |
-| Teacher technology training |                      1 |
-+-----------------------------+------------------------+
-+-----------------------------+----------------+---------------------------------+
-| school_name                 | shortage_score | top_needs                       |
-+-----------------------------+----------------+---------------------------------+
-| Brookside Academy           |             14 | Internet upgrade                |
-| Hudson Valley Middle School |             19 | Software upgrades               |
-| Summit Ridge High School    |             20 | Teacher technology training     |
-| Oakridge Elementary         |             22 | Internet upgrade, New computers |
-| Valley View Elementary      |             22 | New computers                   |
-+-----------------------------+----------------+---------------------------------+
+# Research Results and Analysis
+
+## Research Question 1: Technology Challenges
+and Potential Solutions
+
+### Q1a: What are the most frequently reported
+technology issues?
+
+#### Query Results
+
+| Technology Issue | Surveys Reporting | Schools Affected |
+|---|---:|---:|
+| Slow Wi-Fi | 14 | 10 |
+| Software compatibility errors | 14 | 9 |
+| Outdated computers | 13 | 8 |
+| Not enough student devices | 12 | 11 |
+| Slow classroom computers | 12 | 8 |
+| Network equipment failures | 8 | 8 |
+| Limited staff tech training | 8 | 6 |
+| Outdated educational software | 8 | 6 |
+| Delayed technical support | 7 | 7 |
+| Insufficient Wi-Fi coverage | 7 | 7 |
+| Device sharing delays | 6 | 5 |
+| Frequent internet disconnects | 6 | 5 |
+
+## Q1b: Which potential solutions address the greatest number of survey responses?
+
+| Potential Solution | Relevant Surveys | Percentage | Schools |
+|---|---:|---:|---:|
+| IT support | 44 | 73.3% | 15 |
+| Software upgrades | 39 | 65.0% | 15 |
+| New computers | 33 | 55.0% | 13 |
+| Network equipment | 30 | 50.0% | 14 |
+| Teacher technology training | 21 | 35.0% | 13 |
+| Internet upgrade | 18 | 30.0% | 12 |
+| Additional devices | 16 | 26.7% | 12 |
+
+## Q1c: How do potential solutions differ across staff roles?
+
+### Staff Role Distribution
+
+| Staff Role | Total Respondents | Percentage of Sample |
+|---|---:|---:|
+| Administrator | 11 | 18.3% |
+| IT Staff | 15 | 25.0% |
+| Teacher | 34 | 56.7% |
+| Total | 60 | 100.0% |
+
+### Results: Administrators
+
+| Potential Solution | Relevant Surveys | Total Respondents | Percentage | Rank |
+|---|---:|---:|---:|---:|
+| IT support | 11 | 11 | 100.0% | 1 |
+| New computers | 9 | 11 | 81.8% | 2 |
+| Software upgrades | 9 | 11 | 81.8% | 2 |
+| Network equipment | 7 | 11 | 63.6% | 4 |
+| Internet upgrade | 4 | 11 | 36.4% | 5 |
+| Teacher technology training | 4 | 11 | 36.4% | 5 |
+| Additional devices | 2 | 11 | 18.2% | 7 |
+
+### Results: IT Staff
+
+| Potential Solution | Relevant Surveys | Total Respondents | Percentage | Rank |
+|---|---:|---:|---:|---:|
+| IT support | 9 | 15 | 60.0% | 1 |
+| Software upgrades | 8 | 15 | 53.3% | 2 |
+| New computers | 7 | 15 | 46.7% | 3 |
+| Network equipment | 6 | 15 | 40.0% | 4 |
+| Teacher technology training | 5 | 15 | 33.3% | 5 |
+| Additional devices | 4 | 15 | 26.7% | 6 |
+| Internet upgrade | 4 | 15 | 26.7% | 6 |
+
+### Results: Teachers
+
+| Potential Solution | Relevant Surveys | Total Respondents | Percentage | Rank |
+|---|---:|---:|---:|---:|
+| IT support | 24 | 34 | 70.6% | 1 |
+| Software upgrades | 22 | 34 | 64.7% | 2 |
+| Network equipment | 17 | 34 | 50.0% | 3 |
+| New computers | 17 | 34 | 50.0% | 3 |
+| Teacher technology training | 12 | 34 | 35.3% | 5 |
+| Additional devices | 10 | 34 | 29.4% | 6 |
+| Internet upgrade | 10 | 34 | 29.4% | 6 |
+
+# Research Question 2: Technology Infrastructure
+
+Which schools have the greatest need for technology infrastructure improvements?
+
+## Q2a: Which schools have the greatest device shortages?
+
+| School | Students | Devices | Students per Device | Device Age |
+|---|---:|---:|---:|---:|
+| Hudson Valley Middle School | 933 | 89 | 10.5 | 7.1 |
+| Eastbrook Middle School | 558 | 56 | 10.0 | 5.7 |
+| Oakridge Elementary | 991 | 120 | 8.3 | 7.2 |
+| Valley View Elementary | 745 | 152 | 4.9 | 5.6 |
+| Maple Grove Academy | 575 | 182 | 3.2 | 7.4 |
+| Brookside Academy | 914 | 351 | 2.6 | 5.7 |
+| Stonebridge Academy | 242 | 107 | 2.3 | 2.6 |
+| Summit Ridge High School | 892 | 461 | 1.9 | 3.5 |
+| Lakeside Middle School | 452 | 244 | 1.9 | 3.2 |
+| Riverside Elementary | 444 | 246 | 1.8 | 4.3 |
+| Meadowbrook School | 752 | 550 | 1.4 | 4.4 |
+| Cedar Hill School | 341 | 261 | 1.3 | 6.9 |
+| Northgate High School | 705 | 536 | 1.3 | 5.9 |
+| Pinecrest High School | 391 | 349 | 1.1 | 3.7 |
+| Westfield High School | 312 | 280 | 1.1 | 3.3 |
+
+## Q2b: Which schools have the lowest internet bandwidth per student?
+
+| School | Internet Speed (Mbps) | Mbps per Student |
+|---|---:|---:|
+| Hudson Valley Middle School | 35 | 0.038 |
+| Summit Ridge High School | 35 | 0.039 |
+| Brookside Academy | 50 | 0.055 |
+| Meadowbrook School | 50 | 0.067 |
+| Lakeside Middle School | 50 | 0.111 |
+| Eastbrook Middle School | 75 | 0.134 |
+| Riverside Elementary | 100 | 0.225 |
+| Oakridge Elementary | 250 | 0.252 |
+| Pinecrest High School | 100 | 0.256 |
+| Maple Grove Academy | 150 | 0.261 |
+| Valley View Elementary | 400 | 0.537 |
+| Northgate High School | 400 | 0.567 |
+| Cedar Hill School | 250 | 0.733 |
+| Westfield High School | 400 | 1.282 |
+| Stonebridge Academy | 400 | 1.653 |
+
+## Q2c: Which schools experience the most Wi-Fi reliability problems?
+
+| School | Unreliable Wi-Fi Reports | Total Surveys | Percentage |
+|---|---:|---:|---:|
+| Brookside Academy | 4 | 4 | 100% |
+| Eastbrook Middle School | 4 | 4 | 100% |
+| Maple Grove Academy | 4 | 4 | 100% |
+| Westfield High School | 4 | 4 | 100% |
+| Cedar Hill School | 3 | 4 | 75% |
+| Meadowbrook School | 3 | 4 | 75% |
+| Riverside Elementary | 3 | 4 | 75% |
+| Summit Ridge High School | 3 | 4 | 75% |
+| Valley View Elementary | 3 | 4 | 75% |
+| Lakeside Middle School | 2 | 4 | 50% |
+| Northgate High School | 2 | 4 | 50% |
+| Oakridge Elementary | 2 | 4 | 50% |
+| Stonebridge Academy | 2 | 4 | 50% |
+| Hudson Valley Middle School | 1 | 4 | 25% |
+| Pinecrest High School | 1 | 4 | 25% |
+
+## Q2d: Which schools have the lowest technology budgets per student?
+
+| School | Annual Technology Budget | Budget per Student |
+|---|---:|---:|
+| Oakridge Elementary | $14,000 | $14.13 |
+| Valley View Elementary | $12,000 | $16.11 |
+| Hudson Valley Middle School | $77,000 | $82.53 |
+| Brookside Academy | $113,000 | $123.63 |
+| Summit Ridge High School | $114,000 | $127.80 |
+| Pinecrest High School | $64,000 | $163.68 |
+| Northgate High School | $117,000 | $165.96 |
+| Meadowbrook School | $125,000 | $166.22 |
+| Riverside Elementary | $86,000 | $193.69 |
+| Westfield High School | $61,000 | $195.51 |
+| Cedar Hill School | $68,000 | $199.41 |
+| Lakeside Middle School | $92,000 | $203.54 |
+| Maple Grove Academy | $126,000 | $219.13 |
+| Eastbrook Middle School | $124,000 | $222.22 |
+| Stonebridge Academy | $60,000 | $247.93 |
+
+## Q2e: Which schools have the highest overall infrastructure improvement priority?
+
+| Priority Rank | School | Priority Score |
+|---|---|---:|
+| 1 | Brookside Academy | 20 |
+| 2 | Hudson Valley Middle School | 22 |
+| 3 | Oakridge Elementary | 24 |
+| 4 | Eastbrook Middle School | 29 |
+| 5 | Maple Grove Academy | 30 |
+| 5 | Valley View Elementary | 30 |
+| 7 | Summit Ridge High School | 32 |
+| 8 | Meadowbrook School | 37 |
+| 9 | Riverside Elementary | 41 |
+| 10 | Cedar Hill School | 46 |
+| 10 | Northgate High School | 46 |
+| 12 | Lakeside Middle School | 50 |
+| 13 | Westfield High School | 53 |
+| 14 | Pinecrest High School | 54 |
+| 15 | Stonebridge Academy | 62 |
+
+# Research Question 3: Recommended Technology Improvements
+
+Which technology improvements should be prioritized across individual schools?
+
+## Q3a: What are the highest-ranked potential solutions for each school?
+
+| School | Highest-Ranked Potential Solution |
+|---|---|
+| Brookside Academy | Network equipment |
+| Cedar Hill School | IT support |
+| Eastbrook Middle School | IT support |
+| Hudson Valley Middle School | Software upgrades |
+| Lakeside Middle School | IT support |
+| Maple Grove Academy | IT support; Network equipment |
+| Meadowbrook School | IT support |
+| Northgate High School | IT support |
+| Oakridge Elementary | Software upgrades |
+| Pinecrest High School | Software upgrades |
+| Riverside Elementary | New computers; Software upgrades |
+| Stonebridge Academy | IT support; New computers; Software upgrades |
+| Summit Ridge High School | IT support |
+| Valley View Elementary | IT support; Network equipment |
+| Westfield High School | Additional devices; Network equipment; Teacher technology training |
+
+## Q3b: Which solutions are most frequently ranked first across schools?
+
+| Potential Solution | Schools Ranked First | Percentage of Schools |
+|---|---:|---:|
+| IT support | 9 | 60.0% |
+| Software upgrades | 5 | 33.3% |
+| Network equipment | 4 | 26.7% |
+| New computers | 2 | 13.3% |
+| Additional devices | 1 | 6.7% |
+| Teacher technology training | 1 | 6.7% |
+| Internet upgrade | 0 | 0.0% |
+
+## Q3c: Which solutions should be prioritized at schools with the greatest infrastructure needs?
+
+| School | School Priority | Solution | Relevant Surveys | Unique Issues | Solution Rank |
+|---|---:|---|---:|---:|---:|
+| Brookside Academy | 1 | Network equipment | 4 | 3 | 1 |
+| Brookside Academy | 1 | Internet upgrade | 4 | 2 | 2 |
+| Brookside Academy | 1 | Software upgrades | 3 | 2 | 3 |
+| Hudson Valley Middle School | 2 | Software upgrades | 4 | 3 | 1 |
+| Hudson Valley Middle School | 2 | IT support | 3 | 2 | 2 |
+| Hudson Valley Middle School | 2 | New computers | 3 | 2 | 2 |
+| Oakridge Elementary | 3 | Software upgrades | 3 | 4 | 1 |
+| Oakridge Elementary | 3 | IT support | 3 | 3 | 2 |
+| Oakridge Elementary | 3 | New computers | 3 | 3 | 2 |
+| Eastbrook Middle School | 4 | IT support | 3 | 4 | 1 |
+| Eastbrook Middle School | 4 | New computers | 3 | 2 | 2 |
+| Eastbrook Middle School | 4 | Software upgrades | 3 | 2 | 2 |
+| Maple Grove Academy | 5 | IT support | 3 | 3 | 1 |
+| Maple Grove Academy | 5 | Network equipment | 3 | 3 | 1 |
+| Maple Grove Academy | 5 | Teacher technology training | 3 | 2 | 3 |
+| Valley View Elementary | 5 | IT support | 3 | 3 | 1 |
+| Valley View Elementary | 5 | Network equipment | 3 | 3 | 1 |
+| Valley View Elementary | 5 | New computers | 3 | 1 | 3 |
+| Valley View Elementary | 5 | Software upgrades | 3 | 1 | 3 |
+
+
+
+
+
