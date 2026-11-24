@@ -315,10 +315,3 @@ Supporting documentation includes:
 - Evaluate alternative infrastructure priority weights.
 - Track technology improvements over time.
 
-## Conclusion
-
-The SDG 9 School Technology Infrastructure Database demonstrates how relational databases can support technology infrastructure assessment and data-driven decision-making.
-
-By connecting school resources, staff survey responses, technology issues, and potential solutions, the database provides a structured approach to identifying infrastructure needs and prioritizing improvements.
-
-The project demonstrates practical applications of database design, normalization, SQL queries, indexing, data integrity, and analytical reporting in support of Sustainable Development Goal 9.
